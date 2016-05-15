@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Food Diary</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Date Picker</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string-array name="nav_menu_array">
+        <item>Food Diary</item>
+        <item>Food Library</item>
+        <item>Food Search</item>
+        <item>Reminder</item>
+        <item>Report</item>
+    </string-array>
+
+    <string name="food_search">Enter food name here…</string>
+</resources>
