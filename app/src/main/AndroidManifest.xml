@@ -17,5 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".FoodSearchActivity"></activity>
+        <activity android:name=".FoodLibraryActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".ReportActivity"></activity>
+
     </application>
 </manifest>

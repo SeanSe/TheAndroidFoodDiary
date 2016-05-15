@@ -11,8 +11,8 @@
         <item>Food Diary</item>
         <item>Food Library</item>
         <item>Food Search</item>
-        <item>Reminder</item>
         <item>Report</item>
+        <item>Settings</item>
     </string-array>
 
     <string name="food_search">Enter food name here…</string>

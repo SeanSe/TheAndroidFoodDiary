@@ -160,19 +160,18 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else if(position == 1) {
-                    Toast.makeText(MainActivity.this, "Food Library",
-                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, FoodLibraryActivity.class);
+                    startActivity(intent);
                 } else if(position == 2) {
                     Intent intent = new Intent(MainActivity.this, FoodSearchActivity.class);
                     startActivity(intent);
                 } else if(position == 3) {
-                    Toast.makeText(MainActivity.this, "Reminder",
-                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, ReportActivity.class);
+                    startActivity(intent);
                 } else if(position == 4) {
-                    Toast.makeText(MainActivity.this, "Report",
-                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(intent);
                 }
-
             }
         });
     }
