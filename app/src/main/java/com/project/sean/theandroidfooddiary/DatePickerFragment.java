@@ -38,9 +38,15 @@ public class DatePickerFragment extends DialogFragment
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
         String dayOfWeek = dayFormat.format(cal.getTime());
 
+        //Gets the month of the year, MM is displays "05" for May
+        String monthNumber;
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+        monthNumber = monthFormat.format(cal.getTime());
+
+
         TextView tv1= (TextView) getActivity().findViewById(R.id.date_text_view);
 
-        String chosenDate = dayOfWeek + " "+view.getDayOfMonth() + "/"+view.getMonth() + "/" +view.getYear();
+        String chosenDate = dayOfWeek + " "+view.getDayOfMonth() + "/"+ monthNumber + "/" +view.getYear();
         tv1.setText(chosenDate);
     }
 }

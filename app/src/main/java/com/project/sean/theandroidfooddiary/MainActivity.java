@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList = (ListView) findViewById(R.id.navList);
         mDrawerLayout =(DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
-
         //Create the items for the menu
         addDrawerItems();
         //
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         //Get todays date and set the MainActivity on launch to it
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
+        //int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         //Gets the day of the week, EEEE is for the long name
@@ -80,7 +79,12 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
         weekDay = dayFormat.format(c.getTime());
 
-        String currentDate = weekDay + " " + day + "/" + month + "/" + year;
+        //Gets the month of the year, MM is displays "05" for May
+        String monthNumber;
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+        monthNumber = monthFormat.format(c.getTime());
+
+        String currentDate = weekDay + " " + day + "/" + monthNumber + "/" + year;
 
         TextView date_text_view = (TextView) findViewById(R.id.date_text_view);
         date_text_view.setText(currentDate);
