@@ -20,6 +20,6 @@
         <activity android:name=".FoodLibraryActivity"></activity>
         <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".ReportActivity"></activity>
-
+        <activity android:name=".AddDiaryEntryActivity"></activity>
     </application>
 </manifest>

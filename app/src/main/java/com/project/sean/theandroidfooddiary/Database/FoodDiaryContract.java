@@ -20,6 +20,8 @@ public class FoodDiaryContract {
         //Column names
         public static final String COL_DIARYID = "DIARY_ID";
         public static final String COL_DATE = "DIARY_DATE";
+        public static final String COL_HOUR = "DIARY_HOUR";
+        public static final String COL_MINUTE = "DIARY_MINUTE";
         public static final String COL_FOODITEM = "FOOD_ITEM";
         public static final String COL_FOODNOTE = "FOOD_NOTE";
     }

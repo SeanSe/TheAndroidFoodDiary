@@ -6,11 +6,16 @@ package com.project.sean.theandroidfooddiary.Database;
 public class FoodDiary {
 
     private int diaryId;
-    private String date;
+    private long date;
+    private int hour;
+    private int minute;
     private String foodItem;
     private String foodNote;
 
-    public FoodDiary(String date, String foodItem, String foodNote) {
+    public FoodDiary(){
+    }
+
+    public FoodDiary(long date, String foodItem, String foodNote) {
         this.date = date;
         this.foodItem = foodItem;
         this.foodNote = foodNote;
@@ -24,12 +29,28 @@ public class FoodDiary {
         this.diaryId = diaryId;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
     public String getFoodItem() {

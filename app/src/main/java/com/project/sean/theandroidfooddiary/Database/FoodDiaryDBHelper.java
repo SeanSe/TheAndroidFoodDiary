@@ -2,13 +2,18 @@ package com.project.sean.theandroidfooddiary.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.project.sean.theandroidfooddiary.Database.FoodDiaryContract.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
- *
+ * Food Diary database helper class, will deal with handling the SQL
+ * queries for the app.
  * Created by Sean on 16/05/2016.
  */
 public class FoodDiaryDBHelper extends SQLiteOpenHelper {
@@ -20,7 +25,13 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     public static final String SQL_CREATE_TABLE_DIARY =
-            "CREATE TABLE " + DiaryTable.TABLE_NAME;
+            "CREATE TABLE " + DiaryTable.TABLE_NAME + " (" +
+                    DiaryTable.COL_DIARYID + " INTEGER PRIMARY KEY, " +
+                    DiaryTable.COL_DATE + " INTEGER, " +
+                    DiaryTable.COL_HOUR + " INTEGER, " +
+                    DiaryTable.COL_MINUTE + " INTEGER, " +
+                    DiaryTable.COL_FOODITEM + " TEXT, " +
+                    DiaryTable.COL_FOODNOTE + " TEXT)";
 
     public static final String SQL_DELETE_TABLE_DIARY =
             "DROP TABLE IF EXISTS " + DiaryTable.TABLE_NAME;
@@ -56,6 +67,17 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE_DIARY);
+
+        ContentValues contentValues = new ContentValues();
+        //Var1. Column name, Var2. Value
+        //contentValues.put(DiaryTable.COL_DIARYID, foodDiary.getDiaryId());
+        contentValues.put(DiaryTable.COL_DATE, 1463356800000L);
+        contentValues.put(DiaryTable.COL_HOUR, 01);
+        contentValues.put(DiaryTable.COL_MINUTE, 01);
+        contentValues.put(DiaryTable.COL_FOODITEM, "Cheese");
+        contentValues.put(DiaryTable.COL_FOODNOTE, "All good");
+
+        db.insert(DiaryTable.TABLE_NAME, null, contentValues);
     }
 
     /**
@@ -84,6 +106,8 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
         //Var1. Column name, Var2. Value
         contentValues.put(DiaryTable.COL_DIARYID, foodDiary.getDiaryId());
         contentValues.put(DiaryTable.COL_DATE, foodDiary.getDate());
+        contentValues.put(DiaryTable.COL_HOUR, foodDiary.getHour());
+        contentValues.put(DiaryTable.COL_MINUTE, foodDiary.getMinute());
         contentValues.put(DiaryTable.COL_FOODITEM, foodDiary.getFoodItem());
         contentValues.put(DiaryTable.COL_FOODNOTE, foodDiary.getFoodNote());
 
@@ -97,4 +121,54 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    /**
+     * Checks if a stock item exists already.
+     * @param date
+     * @return
+     */
+    public boolean exsists(long date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        //Cursor cursor = null;
+        String exists = "SELECT " + DiaryTable.COL_DATE + " FROM " + DiaryTable.TABLE_NAME +
+                " WHERE " + DiaryTable.COL_DATE + " = " + date;
+        Cursor cursor = db.rawQuery(exists, null);
+        if (cursor != null) {
+            if (cursor.getCount() != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Creates an ArrayList of food diary entries for the given date.
+     * @param date
+     * @return
+     */
+    public ArrayList<FoodDiary> getAllFoodDiaryEntries(long date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<FoodDiary> diaryList = new ArrayList<>();
+        //SELECT * QUERY
+        String SQL_GETALLDIARY = "SELECT * FROM " + DiaryTable.TABLE_NAME +
+                " WHERE " + DiaryTable.COL_DATE + " = " + date + " ORDER BY " +
+                DiaryTable.COL_HOUR + " ASC, " + DiaryTable.COL_MINUTE + " ASC";
+        Cursor cursor = db.rawQuery(SQL_GETALLDIARY, null);
+        if(cursor.moveToFirst()) {
+            do {
+                FoodDiary foodDiary = new FoodDiary();
+                foodDiary.setDiaryId(cursor.getInt(0));
+                foodDiary.setDate(cursor.getLong(1));
+                foodDiary.setHour(cursor.getInt(2));
+                foodDiary.setMinute(cursor.getInt(3));
+                foodDiary.setFoodItem(cursor.getString(4));
+                foodDiary.setFoodNote(cursor.getString(5));
+
+                diaryList.add(foodDiary);
+            } while (cursor.moveToNext());
+        }
+        return diaryList;
+    }
+
+
 }
