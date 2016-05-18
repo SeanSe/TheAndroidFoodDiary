@@ -37,6 +37,8 @@ public class EditDiaryEntryActivity extends AppCompatActivity implements View.On
     int clockHour = 01;
     int clockMinute = 02;
 
+    private FoodDiary updateDiary;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,16 +83,29 @@ public class EditDiaryEntryActivity extends AppCompatActivity implements View.On
 
         Log.d("AddDiaryEntry Date:", String.valueOf(selectedDate.getTimeInMillis()));
 
+        updateDiary = (FoodDiary) getIntent().getSerializableExtra("diaryEntry");
+
+        final Calendar updateCurrentTime = Calendar.getInstance();
+        updateCurrentTime.set(Calendar.HOUR_OF_DAY, updateDiary.getHour());
+        updateCurrentTime.set(Calendar.MINUTE, updateDiary.getMinute());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String updateTime = timeFormat.format(updateCurrentTime.getTime());
+
+        editUpdateFoodItem.setText(updateDiary.getFoodItem());
+        editUpdateTime.setText(updateTime);
+        editUpdateNote.setText(updateDiary.getFoodNote());
+
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonUpdateEntry: {
-                addDiaryEntry();
+                updateDiaryEntry();
                 break;
             }
             case R.id.editUpdateTime: {
                 addTime();
+                break;
             }
         }
     }
@@ -98,11 +113,12 @@ public class EditDiaryEntryActivity extends AppCompatActivity implements View.On
     /**
      * Add a diary entry to the database.
      */
-    public void addDiaryEntry() {
+    public void updateDiaryEntry() {
         if(!isEmpty(editUpdateFoodItem) &&
                 !isEmpty(editUpdateTime)) {
             FoodDiary foodDiary = new FoodDiary();
 
+            foodDiary.setDiaryId(updateDiary.getDiaryId());
             foodDiary.setDate(selectedDate.getTimeInMillis());
             foodDiary.setHour(clockHour);
             foodDiary.setMinute(clockMinute);
@@ -113,19 +129,17 @@ public class EditDiaryEntryActivity extends AppCompatActivity implements View.On
                 foodDiary.setFoodNote("No note entered.");
             }
 
-            boolean isInserted = dbHelper.insertDiaryData(foodDiary);
+            boolean isInserted = dbHelper.updateFoodDiaryEntry(foodDiary);
 
             if(isInserted) {
-                Toast.makeText(this, "Data inserted successfully!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Data updated successfully!", Toast.LENGTH_LONG).show();
                 editUpdateFoodItem.getText().clear();
                 editUpdateTime.getText().clear();
                 editUpdateNote.getText().clear();
 
                 Log.d("Date Added:", String.valueOf(selectedDate.getTimeInMillis()));
 
-                //Intent intent = new Intent(AddDiaryEntryActivity.this, MainActivity.class);
-
-                int ENTRY_UPDATED = 1;
+                int ENTRY_UPDATED = 2;
 
                 Intent intent = new Intent(EditDiaryEntryActivity.this, MainActivity.class);
                 intent.putExtra("calendar", selectedDate);

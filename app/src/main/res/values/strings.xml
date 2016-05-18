@@ -15,5 +15,10 @@
         <item>Settings</item>
     </string-array>
 
+    <string-array name="diary_context">
+        <item>Update</item>
+        <item>Delete</item>
+    </string-array>
+
     <string name="food_search">Enter food name here…</string>
 </resources>

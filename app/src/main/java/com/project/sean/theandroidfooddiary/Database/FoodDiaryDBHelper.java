@@ -172,4 +172,38 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     }
 
 
+    public boolean updateFoodDiaryEntry(FoodDiary foodDiary) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        //Var 1. column name
+        //Var 2. value
+        contentValues.put(DiaryTable.COL_DIARYID, foodDiary.getDiaryId());
+        contentValues.put(DiaryTable.COL_DATE, foodDiary.getDate());
+        contentValues.put(DiaryTable.COL_HOUR, foodDiary.getHour());
+        contentValues.put(DiaryTable.COL_MINUTE, foodDiary.getMinute());
+        contentValues.put(DiaryTable.COL_FOODITEM, foodDiary.getFoodItem());
+        contentValues.put(DiaryTable.COL_FOODNOTE, foodDiary.getFoodNote());
+
+        String diary_id = DiaryTable.COL_DIARYID + " = " + foodDiary.getDiaryId();
+        //Var 1. table name
+        //Var 2. content value
+        //Var 3. condition to pass - id = ?
+        //Var 4. String array of ids
+        long result = db.update(DiaryTable.TABLE_NAME, contentValues, diary_id, null);
+        if(result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Integer deleteFoodDiaryEntry(int diaryId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String diary_id = DiaryTable.TABLE_NAME + " = " + diaryId;
+        //Var 1. table name
+        //Var 2. where clause, asks for the diary ID
+        //Var 3. String array for where clause
+        return db.delete(DiaryTable.TABLE_NAME, diary_id, null);
+    }
 }

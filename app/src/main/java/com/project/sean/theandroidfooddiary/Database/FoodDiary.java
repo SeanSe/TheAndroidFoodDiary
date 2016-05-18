@@ -1,9 +1,11 @@
 package com.project.sean.theandroidfooddiary.Database;
 
+import java.io.Serializable;
+
 /**
  * Created by Sean on 16/05/2016.
  */
-public class FoodDiary {
+public class FoodDiary implements Serializable {
 
     private int diaryId;
     private long date;

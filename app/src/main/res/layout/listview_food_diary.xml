@@ -7,25 +7,26 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/tv_food_diary_time"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="Food Time" />
+            android:text="Food Time"
+            android:layout_marginLeft="5dp" />
 
         <TextView
             android:id="@+id/tv_food_diary_name"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Food Name" />
+            android:text="Food Name"
+            android:layout_marginRight="5dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -33,7 +34,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_below="@+id/food_diary_top_layout">
+        android:layout_below="@+id/food_diary_top_layout"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp">
 
         <TextView
             android:layout_width="wrap_content"

@@ -94,6 +94,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
             }
             case R.id.editTime: {
                 addTime();
+                break;
             }
         }
     }

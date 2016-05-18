@@ -1,6 +1,8 @@
 package com.project.sean.theandroidfooddiary;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -11,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.sean.theandroidfooddiary.Database.FoodDiary;
 import com.project.sean.theandroidfooddiary.Database.FoodDiaryDBHelper;
@@ -133,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             lv_food_diary_list.setAdapter(foodAdapter);
         }
 
+        registerForContextMenu(lv_food_diary_list);
 
         //FloatingActionButton to add a new entry into the diary.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -215,20 +220,20 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0) {
+                if (position == 0) {
                     Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                } else if(position == 1) {
+                } else if (position == 1) {
                     Intent intent = new Intent(MainActivity.this, FoodLibraryActivity.class);
                     startActivity(intent);
-                } else if(position == 2) {
+                } else if (position == 2) {
                     Intent intent = new Intent(MainActivity.this, FoodSearchActivity.class);
                     startActivity(intent);
-                } else if(position == 3) {
+                } else if (position == 3) {
                     Intent intent = new Intent(MainActivity.this, ReportActivity.class);
                     startActivity(intent);
-                } else if(position == 4) {
+                } else if (position == 4) {
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                 }
@@ -379,6 +384,87 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 1) {
             currentSelectDate = (Calendar) getIntent().getSerializableExtra("calendar");
             diaryList(currentSelectDate);
+        } else if(requestCode == 2) {
+            currentSelectDate =(Calendar) getIntent().getSerializableExtra("calendar");
+            diaryList(currentSelectDate);
         }
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId()==R.id.lv_food_diary_list) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            menu.setHeaderTitle(diaryResult.get(info.position).getFoodItem().toString());
+            String[] menuItems = getResources().getStringArray(R.array.diary_context);
+            for (int i = 0; i<menuItems.length; i++) {
+                menu.add(Menu.NONE, i, i, menuItems[i]);
+            }
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int menuItemIndex = item.getItemId();
+        String[] menuItems = getResources().getStringArray(R.array.diary_context);
+        String menuItemName = menuItems[menuItemIndex];
+        //String listItemName = shoppingCart.getCartItems().get(info.position - 1).getCartItem().getStockName();
+
+        switch(menuItemName) {
+            case "Update": {
+                Toast.makeText(this, "Update pressed.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, EditDiaryEntryActivity.class);
+                intent.putExtra("calendar", currentSelectDate);
+                intent.putExtra("diaryEntry", diaryResult.get(info.position));
+                startActivity(intent);
+                break;
+            }
+            case "Delete": {
+                Toast.makeText(this, "Delete pressed.", Toast.LENGTH_SHORT).show();
+                deleteSelectedEntry(info.position);
+                break;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * AlertDialog to check if the user wants to delete the stock item selected.
+     */
+    public void confirmDeleteDialog(final int position) {
+        if(dbHelper.exsists(currentSelectDate.getTimeInMillis())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder
+                    .setMessage("Are you sure you want to delete this food entry?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            deleteSelectedEntry(position);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        } else {
+            Toast.makeText(this, "Diary entry does not exist.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Delete selected entry after confirmation dialog.
+     * @param position
+     */
+    public void deleteSelectedEntry(int position) {
+        foodAdapter.remove(diaryResult.get(position));
+        diaryResult.remove(position);
+        foodAdapter.notifyDataSetChanged();
+    }
+
+
 }
