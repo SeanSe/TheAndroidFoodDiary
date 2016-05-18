@@ -422,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
             }
             case "Delete": {
                 Toast.makeText(this, "Delete pressed.", Toast.LENGTH_SHORT).show();
-                deleteSelectedEntry(info.position);
+                confirmDeleteDialog(info.position);
                 break;
             }
         }
@@ -461,10 +461,10 @@ public class MainActivity extends AppCompatActivity {
      * @param position
      */
     public void deleteSelectedEntry(int position) {
-        foodAdapter.remove(diaryResult.get(position));
-        diaryResult.remove(position);
+        int currentPosition = position;
+
+        diaryResult.remove(currentPosition);
+        foodAdapter.notifyData(diaryResult);
         foodAdapter.notifyDataSetChanged();
     }
-
-
 }

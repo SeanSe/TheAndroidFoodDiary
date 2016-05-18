@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,6 +109,17 @@ public class EditDiaryEntryActivity extends AppCompatActivity implements View.On
                 break;
             }
         }
+    }
+
+    /**
+     * Inflates the menu, adds items to the action bar if it is present.
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add_entry, menu);
+        return true;
     }
 
     /**
