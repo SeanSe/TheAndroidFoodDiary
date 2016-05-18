@@ -44,6 +44,8 @@ public class NutrientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nutrients);
+
+        setTitle("Nutrient Details");
         //Retrieve data from FoodSearchActivity on listview item click
 //        Intent intent = getIntent();
 //        String action = intent.getAction();
@@ -181,10 +183,10 @@ public class NutrientActivity extends AppCompatActivity {
                 String foodWeightVal = currentList.get(0).getWeight();
                 String foodMeasureVal = currentList.get(0).getMeasure();
 
-                tvFoodName.setText("Food Name: " + foodNameVal);
-                tvFoodNo.setText("Food No: " + foodNoVal);
-                tvWeight.setText("Weight: " + foodWeightVal);
-                tvMeasure.setText("Measurement: " + foodMeasureVal);
+                tvFoodName.setText(foodNameVal);
+                tvFoodNo.setText(foodNoVal);
+                tvWeight.setText(foodWeightVal);
+                tvMeasure.setText(foodMeasureVal);
             }
         }
     }
@@ -239,11 +241,11 @@ public class NutrientActivity extends AppCompatActivity {
 //            //How many elements inside the nutrient list
 //            Log.d("Nutrient Size: ", "" + nutrient.size());
 //
-            holder.tvNutrientID.setText("Nutrient ID: " + nutrientList.get(position).getNutrient_id());
-            holder.tvNutrient.setText("Nutrient Name: " + nutrientList.get(position).getNutrient());
-            holder.tvUnit.setText("Unit: " + nutrientList.get(position).getUnit());
-            holder.tvValue.setText("Value: " + nutrientList.get(position).getValue());
-            holder.tvGm.setText("gm: " + nutrientList.get(position).getGm());
+            holder.tvNutrientID.setText(nutrientList.get(position).getNutrient_id());
+            holder.tvNutrient.setText(nutrientList.get(position).getNutrient());
+            holder.tvUnit.setText(nutrientList.get(position).getUnit());
+            holder.tvValue.setText(nutrientList.get(position).getValue());
+            holder.tvGm.setText(nutrientList.get(position).getGm());
 
             //Alternates row colours, BLUE if the remainder of position divided by 2 is 0
             //otherwise it is CYAN
