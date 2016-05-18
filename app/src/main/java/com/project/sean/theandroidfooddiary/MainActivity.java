@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -84,16 +83,7 @@ public class MainActivity extends AppCompatActivity {
         //Enable or disable the "home" button in the corner of the aciton bar.
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        //FloatingActionButton to add a new entry into the diary.
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddDiaryEntryActivity.class);
-                intent.putExtra("calendar", currentSelectDate);
-                startActivity(intent);
-            }
-        });
+
 
         //ListView of diary items
         lv_food_diary_list = (ListView) findViewById(R.id.lv_food_diary_list);
@@ -142,6 +132,18 @@ public class MainActivity extends AppCompatActivity {
             foodAdapter = new FoodDiaryAdapter(getApplicationContext(), R.layout.listview_food_diary, diaryResult);
             lv_food_diary_list.setAdapter(foodAdapter);
         }
+
+
+        //FloatingActionButton to add a new entry into the diary.
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddDiaryEntryActivity.class);
+                intent.putExtra("calendar", currentSelectDate);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -346,7 +348,15 @@ public class MainActivity extends AppCompatActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            String time = foodDiaryList.get(position).getHour() + ":" + foodDiaryList.get(position).getMinute();
+            Calendar diaryTime = Calendar.getInstance();
+            diaryTime.clear();
+            diaryTime.set(Calendar.HOUR, foodDiaryList.get(position).getHour());
+            diaryTime.set(Calendar.MINUTE, foodDiaryList.get(position).getMinute());
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            String time = timeFormat.format(diaryTime.getTime());
+
+            //String time = foodDiaryList.get(position).getHour() + ":" + foodDiaryList.get(position).getMinute();
 
             holder.tv_food_diary_time.setText(time);
             holder.tv_food_diary_name.setText(foodDiaryList.get(position).getFoodItem());
@@ -361,5 +371,14 @@ public class MainActivity extends AppCompatActivity {
             notifyDataSetChanged();
         }
 
+    }
+
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent date) {
+        super.onActivityResult(requestCode, resultCode, date);
+        if(requestCode == 1) {
+            currentSelectDate = (Calendar) getIntent().getSerializableExtra("calendar");
+            diaryList(currentSelectDate);
+        }
     }
 }

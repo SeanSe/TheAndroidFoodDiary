@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/tv_add_diary_select_date"
+        android:id="@+id/tv_edit_diary_select_date"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:layout_marginBottom="25dp" />
@@ -20,14 +20,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Food Name: "
         android:id="@+id/tvAddFoodName"
-        android:layout_below="@+id/tv_add_diary_select_date"
+        android:layout_below="@+id/tv_edit_diary_select_date"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editAddFoodItem"
+        android:id="@+id/editUpdateFoodItem"
         android:layout_alignTop="@+id/tvAddFoodName"
         android:layout_toRightOf="@+id/tvAddFoodName"
         android:layout_alignParentRight="true"
@@ -40,7 +40,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Time: "
         android:id="@+id/tvAddTime"
-        android:layout_below="@+id/editAddFoodItem"
+        android:layout_below="@+id/editUpdateFoodItem"
         android:layout_alignLeft="@+id/tvAddFoodName"
         android:layout_alignStart="@+id/tvAddFoodName" />
 
@@ -49,12 +49,12 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:ems="10"
-        android:id="@+id/editTime"
+        android:id="@+id/editUpdateTime"
         android:layout_alignTop="@+id/tvAddTime"
         android:layout_toRightOf="@+id/tvAddFoodName"
         android:layout_marginBottom="20dp"
-        android:layout_alignRight="@+id/editAddFoodItem"
-        android:layout_alignEnd="@+id/editAddFoodItem"
+        android:layout_alignRight="@+id/editUpdateFoodItem"
+        android:layout_alignEnd="@+id/editUpdateFoodItem"
         android:focusable="false"/>
 
     <TextView
@@ -63,26 +63,26 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Note:"
         android:id="@+id/tvAddNote"
-        android:layout_below="@+id/editTime"
+        android:layout_below="@+id/editUpdateTime"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editNote"
+        android:id="@+id/editUpdateNote"
         android:layout_alignTop="@+id/tvAddNote"
-        android:layout_alignLeft="@+id/editTime"
-        android:layout_alignStart="@+id/editTime"
+        android:layout_alignLeft="@+id/editUpdateTime"
+        android:layout_alignStart="@+id/editUpdateTime"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Entry"
-        android:id="@+id/buttonAddEntry"
-        android:layout_below="@+id/editNote"
+        android:text="Update Entry"
+        android:id="@+id/buttonUpdateEntry"
+        android:layout_below="@+id/editUpdateNote"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp" />
 

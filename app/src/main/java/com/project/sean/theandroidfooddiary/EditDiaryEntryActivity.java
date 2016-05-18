@@ -13,29 +13,26 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.project.sean.theandroidfooddiary.Database.FoodDiary;
-import com.project.sean.theandroidfooddiary.Database.FoodDiaryContract;
 import com.project.sean.theandroidfooddiary.Database.FoodDiaryDBHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
- * Created by Sean on 16/05/2016.
+ * Created by Sean on 18/05/2016.
  */
-public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnClickListener {
+public class EditDiaryEntryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FoodDiaryDBHelper dbHelper;
 
-    TextView tv_add_diary_select_date;
+    TextView tv_edit_diary_select_date;
 
     Calendar selectedDate;
 
-    EditText editAddFoodItem;
-    EditText editTime;
-    EditText editNote;
+    EditText editUpdateFoodItem;
+    EditText editUpdateTime;
+    EditText editUpdateNote;
 
     int clockHour = 01;
     int clockMinute = 02;
@@ -43,15 +40,15 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_diary_entry);
-        setTitle("Add Diary Entry");
+        setContentView(R.layout.activity_edit_diary_entry);
+        setTitle("Update Diary Entry");
 
         //Get instance of the DB
         dbHelper = FoodDiaryDBHelper.getInstance(this);
 
         selectedDate = (Calendar) getIntent().getSerializableExtra("calendar");
 
-        tv_add_diary_select_date = (TextView) findViewById(R.id.tv_add_diary_select_date);
+        tv_edit_diary_select_date = (TextView) findViewById(R.id.tv_edit_diary_select_date);
 
         //Get todays date and set the MainActivity on launch to it
         int year = selectedDate.get(Calendar.YEAR);
@@ -70,17 +67,17 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
         String currentDate = weekDay + " " + day + "/" + monthNumber + "/" + year;
 
-        tv_add_diary_select_date.setText(currentDate);
+        tv_edit_diary_select_date.setText(currentDate);
 
-        editAddFoodItem = (EditText) findViewById(R.id.editAddFoodItem);
+        editUpdateFoodItem = (EditText) findViewById(R.id.editUpdateFoodItem);
 
-        editTime = (EditText) findViewById(R.id.editTime);
-        editTime.setOnClickListener(this);
+        editUpdateTime = (EditText) findViewById(R.id.editUpdateTime);
+        editUpdateTime.setOnClickListener(this);
 
-        editNote = (EditText) findViewById(R.id.editNote);
+        editUpdateNote = (EditText) findViewById(R.id.editUpdateNote);
 
-        Button buttonAddEntry = (Button) findViewById(R.id.buttonAddEntry);
-        buttonAddEntry.setOnClickListener(this);
+        Button buttonUpdateEntry = (Button) findViewById(R.id.buttonUpdateEntry);
+        buttonUpdateEntry.setOnClickListener(this);
 
         Log.d("AddDiaryEntry Date:", String.valueOf(selectedDate.getTimeInMillis()));
 
@@ -88,11 +85,11 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonAddEntry: {
+            case R.id.buttonUpdateEntry: {
                 addDiaryEntry();
                 break;
             }
-            case R.id.editTime: {
+            case R.id.editUpdateTime: {
                 addTime();
             }
         }
@@ -102,16 +99,16 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
      * Add a diary entry to the database.
      */
     public void addDiaryEntry() {
-        if(!isEmpty(editAddFoodItem) &&
-                !isEmpty(editTime)) {
+        if(!isEmpty(editUpdateFoodItem) &&
+                !isEmpty(editUpdateTime)) {
             FoodDiary foodDiary = new FoodDiary();
 
             foodDiary.setDate(selectedDate.getTimeInMillis());
             foodDiary.setHour(clockHour);
             foodDiary.setMinute(clockMinute);
-            foodDiary.setFoodItem(editAddFoodItem.getText().toString());
-            if(!isEmpty(editNote)) {
-                foodDiary.setFoodNote(editNote.getText().toString());
+            foodDiary.setFoodItem(editUpdateFoodItem.getText().toString());
+            if(!isEmpty(editUpdateNote)) {
+                foodDiary.setFoodNote(editUpdateNote.getText().toString());
             } else {
                 foodDiary.setFoodNote("No note entered.");
             }
@@ -120,19 +117,19 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
             if(isInserted) {
                 Toast.makeText(this, "Data inserted successfully!", Toast.LENGTH_LONG).show();
-                editAddFoodItem.getText().clear();
-                editTime.getText().clear();
-                editNote.getText().clear();
+                editUpdateFoodItem.getText().clear();
+                editUpdateTime.getText().clear();
+                editUpdateNote.getText().clear();
 
                 Log.d("Date Added:", String.valueOf(selectedDate.getTimeInMillis()));
 
                 //Intent intent = new Intent(AddDiaryEntryActivity.this, MainActivity.class);
 
-                int ENTRY_ADDED = 1;
+                int ENTRY_UPDATED = 1;
 
-                Intent intent = new Intent(AddDiaryEntryActivity.this, MainActivity.class);
+                Intent intent = new Intent(EditDiaryEntryActivity.this, MainActivity.class);
                 intent.putExtra("calendar", selectedDate);
-                startActivityForResult(intent, ENTRY_ADDED);
+                startActivityForResult(intent, ENTRY_UPDATED);
                 finish();
             } else {
                 Toast.makeText(this, "Error, data not inserted.", Toast.LENGTH_LONG).show();
@@ -156,7 +153,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
                 mcurrentTime.set(Calendar.MINUTE, selectedMinute);
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 String selectHourMinute = timeFormat.format(mcurrentTime.getTime());
-                editTime.setText(selectHourMinute);
+                editUpdateTime.setText(selectHourMinute);
 
                 //Variables used to store in the database.
                 clockHour = selectedHour;
