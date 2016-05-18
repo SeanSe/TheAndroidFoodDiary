@@ -127,9 +127,21 @@ public class MainActivity extends AppCompatActivity {
         date_text_view.setText(currentDate);
 
         diaryResult = new ArrayList<>();
-        diaryResult.addAll(dbHelper.getAllFoodDiaryEntries(c.getTimeInMillis()));
-        foodAdapter = new FoodDiaryAdapter(getApplicationContext(), R.layout.listview_food_diary, diaryResult);
-        lv_food_diary_list.setAdapter(foodAdapter);
+//        diaryResult.addAll(dbHelper.getAllFoodDiaryEntries(c.getTimeInMillis()));
+//        foodAdapter = new FoodDiaryAdapter(getApplicationContext(), R.layout.listview_food_diary, diaryResult);
+//        lv_food_diary_list.setAdapter(foodAdapter);
+
+        //Store time in the DB as milliseconds
+        if(dbHelper.exsists(currentSelectDate.getTimeInMillis())) {
+            diaryResult.clear();
+            diaryResult.addAll(dbHelper.getAllFoodDiaryEntries(currentSelectDate.getTimeInMillis()));
+            foodAdapter = new FoodDiaryAdapter(getApplicationContext(), R.layout.listview_food_diary, diaryResult);
+            lv_food_diary_list.setAdapter(foodAdapter);
+        } else {
+            diaryResult.clear();
+            foodAdapter = new FoodDiaryAdapter(getApplicationContext(), R.layout.listview_food_diary, diaryResult);
+            lv_food_diary_list.setAdapter(foodAdapter);
+        }
     }
 
     /**
@@ -286,9 +298,11 @@ public class MainActivity extends AppCompatActivity {
         if(dbHelper.exsists(currentSelectDate.getTimeInMillis())) {
             diaryResult.clear();
             diaryResult.addAll(dbHelper.getAllFoodDiaryEntries(currentSelectDate.getTimeInMillis()));
+            foodAdapter.notifyData(dbHelper.getAllFoodDiaryEntries(currentSelectDate.getTimeInMillis()));
             foodAdapter.notifyDataSetChanged();
         } else {
             diaryResult.clear();
+            foodAdapter.notifyData(diaryResult);
             foodAdapter.notifyDataSetChanged();
         }
     }

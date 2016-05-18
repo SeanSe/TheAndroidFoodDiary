@@ -71,7 +71,7 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         //Var1. Column name, Var2. Value
         //contentValues.put(DiaryTable.COL_DIARYID, foodDiary.getDiaryId());
-        contentValues.put(DiaryTable.COL_DATE, 1463356800000L);
+        contentValues.put(DiaryTable.COL_DATE, 1463353200000L);
         contentValues.put(DiaryTable.COL_HOUR, 01);
         contentValues.put(DiaryTable.COL_MINUTE, 01);
         contentValues.put(DiaryTable.COL_FOODITEM, "Cheese");
