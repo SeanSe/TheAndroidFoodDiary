@@ -96,7 +96,7 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Add a new diary entry into the database.
      * @param foodDiary
      * @return
      */
@@ -124,7 +124,7 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Checks if a stock item exists already.
+     * Checks if a diary entry for a given date already exists.
      * @param date
      * @return
      */
@@ -172,6 +172,11 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Update the selected food diary entry, changing the details stored in the DB
+     * @param foodDiary
+     * @return
+     */
     public boolean updateFoodDiaryEntry(FoodDiary foodDiary) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -198,12 +203,17 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Integer deleteFoodDiaryEntry(int diaryId) {
+    /**
+     * Deletes the selected food diary entry from the database.
+     * @param diaryId
+     * @return
+     */
+    public boolean deleteFoodDiaryEntry(int diaryId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String diary_id = DiaryTable.TABLE_NAME + " = " + diaryId;
+        String diary_id = DiaryTable.COL_DIARYID + " = " + diaryId;
         //Var 1. table name
         //Var 2. where clause, asks for the diary ID
         //Var 3. String array for where clause
-        return db.delete(DiaryTable.TABLE_NAME, diary_id, null);
+        return db.delete(DiaryTable.TABLE_NAME, diary_id, null) > 0;
     }
 }

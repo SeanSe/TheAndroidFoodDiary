@@ -23,7 +23,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nutrient ID"
-                android:id="@+id/tvNutrientID" />
+                android:id="@+id/tvNutrientID"
+                android:layout_marginLeft="5dp" />
         </TableRow>
 
         <TableRow
@@ -41,7 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nutrient Name"
-                android:id="@+id/tvNutrient" />
+                android:id="@+id/tvNutrient"
+                android:layout_marginLeft="5dp" />
         </TableRow>
 
         <TableRow
@@ -59,7 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Unit"
-                android:id="@+id/tvUnit" />
+                android:id="@+id/tvUnit"
+                android:layout_marginLeft="5dp" />
         </TableRow>
 
         <TableRow
@@ -77,7 +80,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Value"
-                android:id="@+id/tvValue" />
+                android:id="@+id/tvValue"
+                android:layout_marginLeft="5dp" />
         </TableRow>
 
         <TableRow
@@ -94,8 +98,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="gm"
-                android:id="@+id/tvGm" />
+                android:id="@+id/tvGm"
+                android:layout_marginLeft="5dp" />
         </TableRow>
     </TableLayout>
 

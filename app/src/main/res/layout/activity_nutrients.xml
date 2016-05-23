@@ -26,14 +26,16 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/tvFName"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Food Name"
                     android:id="@+id/tvFoodName"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="7dp" />
             </TableRow>
 
             <TableRow
@@ -47,7 +49,8 @@
                     android:text="Food Number:"
                     android:id="@+id/tvFNum"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,7 +59,8 @@
                     android:id="@+id/tvFoodNo"
                     android:layout_below="@+id/tvFoodName"
                     android:layout_alignLeft="@+id/tvFoodName"
-                    android:layout_alignStart="@+id/tvFoodName" />
+                    android:layout_alignStart="@+id/tvFoodName"
+                    android:layout_marginLeft="7dp" />
             </TableRow>
 
             <TableRow
@@ -70,13 +74,15 @@
                     android:text="Weight:"
                     android:id="@+id/tvWei"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Weight"
-                    android:id="@+id/tvWeight" />
+                    android:id="@+id/tvWeight"
+                    android:layout_marginLeft="7dp" />
             </TableRow>
 
             <TableRow
@@ -90,13 +96,15 @@
                     android:text="Measure:"
                     android:id="@+id/tvMea"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Measure"
-                    android:id="@+id/tvMeasure" />
+                    android:id="@+id/tvMeasure"
+                    android:layout_marginLeft="7dp" />
             </TableRow>
         </TableLayout>
 

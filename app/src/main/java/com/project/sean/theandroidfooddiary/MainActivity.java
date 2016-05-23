@@ -463,8 +463,15 @@ public class MainActivity extends AppCompatActivity {
     public void deleteSelectedEntry(int position) {
         int currentPosition = position;
 
-        diaryResult.remove(currentPosition);
-        foodAdapter.notifyData(diaryResult);
-        foodAdapter.notifyDataSetChanged();
+        boolean deleted = dbHelper.deleteFoodDiaryEntry(diaryResult.get(currentPosition).getDiaryId());
+        if(deleted) {
+            diaryResult.remove(currentPosition);
+            foodAdapter.notifyData(diaryResult);
+            foodAdapter.notifyDataSetChanged();
+
+            Toast.makeText(this, "Entry deleted successfully.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Entry not deleted.", Toast.LENGTH_LONG).show();
+        }
     }
 }
