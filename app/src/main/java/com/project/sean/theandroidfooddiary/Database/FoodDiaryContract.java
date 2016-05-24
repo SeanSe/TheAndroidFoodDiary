@@ -25,4 +25,13 @@ public class FoodDiaryContract {
         public static final String COL_FOODITEM = "FOOD_ITEM";
         public static final String COL_FOODNOTE = "FOOD_NOTE";
     }
+
+    public static abstract class FoodLibTable implements BaseColumns {
+        //Table name
+        public static final String TABLE_NAME = "FOOD_LIB";
+        //Column names
+        public static final String COL_FOODID = "FOOD_ID";
+        public static final String COL_FOODNAME = "FOOD_NAME";
+        public static final String COL_NOTE = "NOTE";
+    }
 }

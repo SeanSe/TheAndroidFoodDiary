@@ -139,13 +139,11 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
                 Log.d("Date Added:", String.valueOf(selectedDate.getTimeInMillis()));
 
-                //Intent intent = new Intent(AddDiaryEntryActivity.this, MainActivity.class);
-
                 int ENTRY_ADDED = 1;
 
                 Intent intent = new Intent(AddDiaryEntryActivity.this, MainActivity.class);
                 intent.putExtra("calendar", selectedDate);
-                startActivityForResult(intent, ENTRY_ADDED);
+                setResult(RESULT_OK, intent);
                 finish();
             } else {
                 Toast.makeText(this, "Error, data not inserted.", Toast.LENGTH_LONG).show();

@@ -95,6 +95,8 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //------------------------------------- Food Diary ---------------------------------------
+
     /**
      * Add a new diary entry into the database.
      * @param foodDiary
@@ -215,5 +217,120 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
         //Var 2. where clause, asks for the diary ID
         //Var 3. String array for where clause
         return db.delete(DiaryTable.TABLE_NAME, diary_id, null) > 0;
+    }
+
+
+    //------------------------------------- Food Library ---------------------------------------
+
+    /**
+     * Add a new food library entry into the database.
+     * @param foodLibrary
+     * @return
+     */
+    public boolean insertFoodData(FoodLibrary foodLibrary) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        //Var1. Column name, Var2. Value
+        contentValues.put(FoodLibTable.COL_FOODID, foodLibrary.getFoodId());
+        contentValues.put(FoodLibTable.COL_FOODNAME, foodLibrary.getFoodName());
+        contentValues.put(FoodLibTable.COL_NOTE, foodLibrary.getNote());
+
+        //Var1. Table name, Var2. , Var3. ContentValues to be input
+        //Returns -1 if data is not inserted
+        //Returns row ID of newly inserted row if successful
+        long result = db.insert(FoodLibTable.TABLE_NAME, null, contentValues);
+        if(result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Checks if a food item already exists.
+     * @param foodId
+     * @return
+     */
+    public boolean exsists(String foodId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        //Cursor cursor = null;
+        String exists = "SELECT " + FoodLibTable.COL_FOODID + " FROM " + FoodLibTable.TABLE_NAME +
+                " WHERE " + FoodLibTable.COL_FOODID + " = " + foodId;
+        Cursor cursor = db.rawQuery(exists, null);
+        if (cursor != null) {
+            if (cursor.getCount() != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Creates an ArrayList of all food library entries.
+     * @param foodId
+     * @return
+     */
+    public ArrayList<FoodLibrary> getAllFoodLibEntries(String foodId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<FoodLibrary> foodList = new ArrayList<>();
+        //SELECT * QUERY
+        String SQL_GETALLDIARY = "SELECT * FROM " + FoodLibTable.TABLE_NAME +
+                " WHERE " + FoodLibTable.COL_FOODID + " = " + foodId;
+        Cursor cursor = db.rawQuery(SQL_GETALLDIARY, null);
+        if(cursor.moveToFirst()) {
+            do {
+                FoodLibrary foodItem = new FoodLibrary();
+                foodItem.setFoodId(cursor.getString(0));
+                foodItem.setFoodName(cursor.getString(1));
+                foodItem.setNote(cursor.getString(2));
+
+                foodList.add(foodItem);
+            } while (cursor.moveToNext());
+        }
+        return foodList;
+    }
+
+
+    /**
+     * Update the selected food diary entry, changing the details stored in the DB
+     * @param foodLibrary
+     * @return
+     */
+    public boolean updateFoodLibEntry(FoodLibrary foodLibrary) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        //Var 1. column name
+        //Var 2. value
+        contentValues.put(FoodLibTable.COL_FOODID, foodLibrary.getFoodId());
+        contentValues.put(FoodLibTable.COL_FOODNAME, foodLibrary.getFoodName());
+        contentValues.put(FoodLibTable.COL_NOTE, foodLibrary.getNote());
+
+        String food_id = FoodLibTable.COL_FOODID + " = " + foodLibrary.getFoodId();
+        //Var 1. table name
+        //Var 2. content value
+        //Var 3. condition to pass - id = ?
+        //Var 4. String array of ids
+        long result = db.update(FoodLibTable.TABLE_NAME, contentValues, food_id, null);
+        if(result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Deletes the selected food library entry from the database.
+     * @param foodId
+     * @return
+     */
+    public boolean deleteFoodLibEntry(String foodId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String food_id = FoodLibTable.COL_FOODID + " = " + foodId;
+        //Var 1. table name
+        //Var 2. where clause, asks for the diary ID
+        //Var 3. String array for where clause
+        return db.delete(DiaryTable.TABLE_NAME, food_id, null) > 0;
     }
 }

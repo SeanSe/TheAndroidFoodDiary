@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddDiaryEntryActivity.class);
                 intent.putExtra("calendar", currentSelectDate);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -380,13 +380,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent date) {
-        super.onActivityResult(requestCode, resultCode, date);
+        //super.onActivityResult(requestCode, resultCode, date);
+        Log.d("onActivityResult", "is ok");
         if(requestCode == 1) {
-            currentSelectDate = (Calendar) getIntent().getSerializableExtra("calendar");
-            diaryList(currentSelectDate);
+            Log.d("RESULT CODE:", String.valueOf(resultCode));
+            if(resultCode == RESULT_OK) {
+                Log.d("result code", "is ok");
+                currentSelectDate = (Calendar) date.getSerializableExtra("calendar");
+                Log.d("Add Activity", String.valueOf(currentSelectDate));
+                diaryList(currentSelectDate);
+            }
         } else if(requestCode == 2) {
-            currentSelectDate =(Calendar) getIntent().getSerializableExtra("calendar");
-            diaryList(currentSelectDate);
+            Log.d("RESULT CODE:", String.valueOf(resultCode));
+            if(resultCode == RESULT_OK) {
+                Log.d("result code", "is ok");
+                currentSelectDate = (Calendar) date.getSerializableExtra("calendar");
+                Log.d("Add Activity", String.valueOf(currentSelectDate));
+                diaryList(currentSelectDate);
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.d("result code", "cancelled");
+            }
+
         }
     }
 
@@ -417,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, EditDiaryEntryActivity.class);
                 intent.putExtra("calendar", currentSelectDate);
                 intent.putExtra("diaryEntry", diaryResult.get(info.position));
-                startActivity(intent);
+                startActivityForResult(intent, 2);
                 break;
             }
             case "Delete": {

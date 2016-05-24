@@ -155,7 +155,7 @@ public class EditDiaryEntryActivity extends AppCompatActivity implements View.On
 
                 Intent intent = new Intent(EditDiaryEntryActivity.this, MainActivity.class);
                 intent.putExtra("calendar", selectedDate);
-                startActivityForResult(intent, ENTRY_UPDATED);
+                setResult(RESULT_OK, intent);
                 finish();
             } else {
                 Toast.makeText(this, "Error, data not inserted.", Toast.LENGTH_LONG).show();
