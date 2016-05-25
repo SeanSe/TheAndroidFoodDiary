@@ -25,18 +25,19 @@ import java.util.Locale;
  */
 public class EditDiaryEntryActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //Instance of the database
     private FoodDiaryDBHelper dbHelper;
 
-    TextView tv_edit_diary_select_date;
+    private TextView tv_edit_diary_select_date;
 
-    Calendar selectedDate;
+    private Calendar selectedDate;
 
-    EditText editUpdateFoodItem;
-    EditText editUpdateTime;
-    EditText editUpdateNote;
+    private EditText editUpdateFoodItem;
+    private EditText editUpdateTime;
+    private EditText editUpdateNote;
 
-    int clockHour = 01;
-    int clockMinute = 02;
+    private int clockHour = 01;
+    private int clockMinute = 02;
 
     private FoodDiary updateDiary;
 

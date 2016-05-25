@@ -33,8 +33,17 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
                     DiaryTable.COL_FOODITEM + " TEXT, " +
                     DiaryTable.COL_FOODNOTE + " TEXT)";
 
+    public static final String SQL_CREATE_TABLE_LIBRARY =
+            "CREATE TABLE " + FoodLibTable.TABLE_NAME + " (" +
+                    FoodLibTable.COL_FOODID + " TEXT PRIMARY KEY, " +
+                    FoodLibTable.COL_FOODNAME + " TEXT, " +
+                    FoodLibTable.COL_NOTE + " TEXT)";
+
     public static final String SQL_DELETE_TABLE_DIARY =
             "DROP TABLE IF EXISTS " + DiaryTable.TABLE_NAME;
+
+    public static final String SQL_DELETE_TABLE_LIBRARY =
+            "DROP TABLE IF EXISTS " + FoodLibTable.TABLE_NAME;
 
     /**
      * Checks if an instance of the database is already open returning that database if
@@ -67,18 +76,19 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE_DIARY);
+        db.execSQL(SQL_CREATE_TABLE_LIBRARY);
 
-        ContentValues contentValues = new ContentValues();
-        //Var1. Column name, Var2. Value
-        //contentValues.put(DiaryTable.COL_DIARYID, foodDiary.getDiaryId());
-        //contentValues.put(DiaryTable.COL_DATE, 1463353200000L);
-        contentValues.put(DiaryTable.COL_DATE, 1463356800000L);
-        contentValues.put(DiaryTable.COL_HOUR, 01);
-        contentValues.put(DiaryTable.COL_MINUTE, 01);
-        contentValues.put(DiaryTable.COL_FOODITEM, "Cheese");
-        contentValues.put(DiaryTable.COL_FOODNOTE, "All good");
-
-        db.insert(DiaryTable.TABLE_NAME, null, contentValues);
+//        ContentValues contentValues = new ContentValues();
+//        //Var1. Column name, Var2. Value
+//        //contentValues.put(DiaryTable.COL_DIARYID, foodDiary.getDiaryId());
+//        //contentValues.put(DiaryTable.COL_DATE, 1463353200000L);
+//        contentValues.put(DiaryTable.COL_DATE, 1463356800000L);
+//        contentValues.put(DiaryTable.COL_HOUR, 01);
+//        contentValues.put(DiaryTable.COL_MINUTE, 01);
+//        contentValues.put(DiaryTable.COL_FOODITEM, "Cheese");
+//        contentValues.put(DiaryTable.COL_FOODNOTE, "All good");
+//
+//        db.insert(DiaryTable.TABLE_NAME, null, contentValues);
     }
 
     /**
@@ -91,6 +101,7 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop all tables and data
         db.execSQL(SQL_DELETE_TABLE_DIARY);
+        db.execSQL(SQL_DELETE_TABLE_LIBRARY);
         //Recreate the tables
         onCreate(db);
     }
@@ -252,7 +263,7 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
      * @param foodId
      * @return
      */
-    public boolean exsists(String foodId) {
+    public boolean foodIdExsists(String foodId) {
         SQLiteDatabase db = this.getReadableDatabase();
         //Cursor cursor = null;
         String exists = "SELECT " + FoodLibTable.COL_FOODID + " FROM " + FoodLibTable.TABLE_NAME +
@@ -268,15 +279,14 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
 
     /**
      * Creates an ArrayList of all food library entries.
-     * @param foodId
      * @return
      */
-    public ArrayList<FoodLibrary> getAllFoodLibEntries(String foodId) {
+    public ArrayList<FoodLibrary> getAllFoodLibEntries() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<FoodLibrary> foodList = new ArrayList<>();
         //SELECT * QUERY
         String SQL_GETALLDIARY = "SELECT * FROM " + FoodLibTable.TABLE_NAME +
-                " WHERE " + FoodLibTable.COL_FOODID + " = " + foodId;
+                " ORDER BY " + FoodLibTable.COL_FOODID + " ASC";
         Cursor cursor = db.rawQuery(SQL_GETALLDIARY, null);
         if(cursor.moveToFirst()) {
             do {
@@ -331,6 +341,6 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
         //Var 1. table name
         //Var 2. where clause, asks for the diary ID
         //Var 3. String array for where clause
-        return db.delete(DiaryTable.TABLE_NAME, food_id, null) > 0;
+        return db.delete(FoodLibTable.TABLE_NAME, food_id, null) > 0;
     }
 }

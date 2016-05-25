@@ -26,5 +26,6 @@
         <activity android:name=".EditDiaryEntryActivity"></activity>
         <activity android:name=".NutrientActivity"></activity>
         <activity android:name=".AddFoodEntryActivity"></activity>
+        <activity android:name=".EditFoodEntryActivity"></activity>
     </application>
 </manifest>

@@ -37,7 +37,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tvAddFoodName"
             android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@+id/tvAddFoodName" />
+            android:layout_toRightOf="@+id/tvAddFoodName"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tvAddTime"
@@ -60,7 +61,8 @@
             android:layout_toRightOf="@+id/tvAddFoodName"
             android:ems="10"
             android:focusable="false"
-            android:inputType="time" />
+            android:inputType="time"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tvAddNote"
@@ -80,7 +82,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignStart="@+id/editUpdateTime"
-            android:layout_alignTop="@+id/tvAddNote" />
+            android:layout_alignTop="@+id/tvAddNote"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/buttonUpdateEntry"

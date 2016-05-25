@@ -35,6 +35,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Instance of the database
     private FoodDiaryDBHelper dbHelper;
     //
     private ListView mDrawerList;

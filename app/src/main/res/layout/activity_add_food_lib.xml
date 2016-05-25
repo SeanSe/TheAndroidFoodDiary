@@ -31,7 +31,8 @@
                     android:ems="10"
                     android:hint="@string/add_diary_enter_food_id_hint"
                     android:id="@+id/edit_add_food_id"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:singleLine="true" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -63,7 +64,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/tvAddFoodName"
                 android:layout_marginBottom="20dp"
-                android:layout_toRightOf="@+id/tvAddFoodName" />
+                android:layout_toRightOf="@+id/tvAddFoodName"
+                android:singleLine="true" />
 
             <TextView
                 android:id="@+id/tvAddNote"
@@ -83,7 +85,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/tvAddNote"
                 android:layout_alignLeft="@+id/editAddFoodLib"
-                android:layout_alignStart="@+id/editAddFoodLib" />
+                android:layout_alignStart="@+id/editAddFoodLib"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/buttonAddFoodLib"
