@@ -381,26 +381,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent date) {
         //super.onActivityResult(requestCode, resultCode, date);
-        Log.d("onActivityResult", "is ok");
+        //Log.d("onActivityResult", "is ok");
         if(requestCode == 1) {
-            Log.d("RESULT CODE:", String.valueOf(resultCode));
+            //Log.d("RESULT CODE:", String.valueOf(resultCode));
             if(resultCode == RESULT_OK) {
-                Log.d("result code", "is ok");
+                //Log.d("result code", "is ok");
                 currentSelectDate = (Calendar) date.getSerializableExtra("calendar");
-                Log.d("Add Activity", String.valueOf(currentSelectDate));
+                //Log.d("Add Activity", String.valueOf(currentSelectDate));
                 diaryList(currentSelectDate);
             }
         } else if(requestCode == 2) {
-            Log.d("RESULT CODE:", String.valueOf(resultCode));
+            //Log.d("RESULT CODE:", String.valueOf(resultCode));
             if(resultCode == RESULT_OK) {
-                Log.d("result code", "is ok");
+                //Log.d("result code", "is ok");
                 currentSelectDate = (Calendar) date.getSerializableExtra("calendar");
-                Log.d("Add Activity", String.valueOf(currentSelectDate));
+                //Log.d("Add Activity", String.valueOf(currentSelectDate));
                 diaryList(currentSelectDate);
-            } else if (resultCode == RESULT_CANCELED) {
-                Log.d("result code", "cancelled");
             }
-
         }
     }
 

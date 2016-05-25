@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:fillViewport="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -9,87 +10,122 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-        <TextView
-            android:id="@+id/tv_add_diary_select_date"
+        <LinearLayout
+            android:id="@+id/top_lin_add_diary"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp">
 
-        <TextView
-            android:id="@+id/tvAddFoodName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/tv_add_diary_select_date"
-            android:text="Food Name: "
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/tv_add_diary_select_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
-            android:id="@+id/editAddFoodItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/tvAddFoodName"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@+id/tvAddFoodName" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
 
-        <TextView
-            android:id="@+id/tvAddTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvAddFoodName"
-            android:layout_alignStart="@+id/tvAddFoodName"
-            android:layout_below="@+id/editAddFoodItem"
-            android:text="Time: "
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:hint="@string/add_diary_enter_food_id_hint"
+                    android:id="@+id/edit_add_diary_food_id"
+                    android:layout_weight="1" />
 
-        <EditText
-            android:id="@+id/editTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/editAddFoodItem"
-            android:layout_alignRight="@+id/editAddFoodItem"
-            android:layout_alignTop="@+id/tvAddTime"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@+id/tvAddFoodName"
-            android:ems="10"
-            android:focusable="false"
-            android:inputType="time" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan"
+                    android:id="@+id/button_scan_item" />
+            </LinearLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvAddNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/editTime"
-            android:text="Note:"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_lin_add_diary">
 
-        <EditText
-            android:id="@+id/editNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editTime"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/editTime"
-            android:layout_alignTop="@+id/tvAddNote" />
+            <TextView
+                android:id="@+id/tvAddFoodName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="Food Name: "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Button
-            android:id="@+id/buttonAddEntry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editNote"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="65dp"
-            android:text="Add Entry" />
+            <EditText
+                android:id="@+id/editAddFoodItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tvAddFoodName"
+                android:layout_marginBottom="20dp"
+                android:layout_toRightOf="@+id/tvAddFoodName" />
+
+            <TextView
+                android:id="@+id/tvAddTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvAddFoodName"
+                android:layout_alignStart="@+id/tvAddFoodName"
+                android:layout_below="@+id/editAddFoodItem"
+                android:text="Time: "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/editAddFoodItem"
+                android:layout_alignRight="@+id/editAddFoodItem"
+                android:layout_alignTop="@+id/tvAddTime"
+                android:layout_marginBottom="20dp"
+                android:layout_toRightOf="@+id/tvAddFoodName"
+                android:ems="10"
+                android:focusable="false"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/tvAddNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/editTime"
+                android:text="Note:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/editTime"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/editTime"
+                android:layout_alignTop="@+id/tvAddNote" />
+
+            <Button
+                android:id="@+id/buttonAddEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editNote"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="65dp"
+                android:text="Add Entry" />
+        </RelativeLayout>
 
 
     </RelativeLayout>

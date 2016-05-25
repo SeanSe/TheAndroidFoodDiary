@@ -20,5 +20,11 @@
         <item>Delete</item>
     </string-array>
 
+    <!-- Food Search -->
     <string name="food_search">Enter food name here…</string>
+
+    <!-- Add Diary Entry -->
+    <string name="add_diary_enter_food_id_hint">Enter food ID here…</string>
+
+
 </resources>
