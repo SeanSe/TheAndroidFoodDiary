@@ -18,14 +18,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FoodSearchActivity"></activity>
-        <activity android:name=".FoodLibraryActivity"></activity>
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".ReportActivity"></activity>
-        <activity android:name=".AddDiaryEntryActivity"></activity>
-        <activity android:name=".EditDiaryEntryActivity"></activity>
-        <activity android:name=".NutrientActivity"></activity>
-        <activity android:name=".AddFoodEntryActivity"></activity>
-        <activity android:name=".EditFoodEntryActivity"></activity>
+
+        <activity android:name=".FoodSearchActivity">
+        </activity>
+
+        <activity android:name=".FoodLibraryActivity">
+        </activity>
+
+        <activity android:name=".SettingsActivity">
+        </activity>
+
+        <activity android:name=".ReportActivity">
+        </activity>
+
+        <activity android:name=".AddDiaryEntryActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+        <activity android:name=".EditDiaryEntryActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+        <activity android:name=".NutrientActivity">
+        </activity>
+
+        <activity android:name=".AddFoodEntryActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
+        <activity android:name=".EditFoodEntryActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
     </application>
 </manifest>

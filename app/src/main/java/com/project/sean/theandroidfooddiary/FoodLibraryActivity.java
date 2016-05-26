@@ -130,9 +130,9 @@ public class FoodLibraryActivity extends AppCompatActivity {
             return convertView;
         }
 
-        public void notifyData(ArrayList<FoodLibrary> foodList) {
+        public void notifyData(ArrayList<FoodLibrary> newFoodList) {
             foodList.clear();
-            foodList.addAll(foodList);
+            foodList.addAll(newFoodList);
             notifyDataSetChanged();
         }
 
