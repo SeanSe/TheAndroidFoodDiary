@@ -278,6 +278,23 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Get the details of a food item, specified by the foodId.
+     * Returns a Cursor object containing the details if they exist.
+     * @param foodId
+     * @return
+     */
+    public Cursor getFoodItemDetails(String foodId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String exists = "SELECT * FROM " + FoodLibTable.TABLE_NAME +
+                " WHERE " + FoodLibTable.COL_FOODID + " = "+ foodId;
+        Cursor cursor = db.rawQuery(exists, null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    /**
      * Creates an ArrayList of all food library entries.
      * @return
      */

@@ -93,7 +93,8 @@ public class EditFoodEntryActivity extends AppCompatActivity {
      * Update the selected food item in the database with the new details entered.
      */
     public void updateFoodLibEntry() {
-
+//        if(!isEmpty(editFL_update_food_id) &&
+//                !isEmpty())
     }
 
     /**

@@ -2,20 +2,26 @@ package com.project.sean.theandroidfooddiary;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.project.sean.theandroidfooddiary.Database.FoodDiary;
 import com.project.sean.theandroidfooddiary.Database.FoodDiaryContract;
 import com.project.sean.theandroidfooddiary.Database.FoodDiaryDBHelper;
+import com.project.sean.theandroidfooddiary.Database.FoodLibrary;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +43,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     EditText editAddFoodItem;
     EditText editTime;
     EditText editNote;
+    EditText edit_add_diary_food_id;
 
     int clockHour = 01;
     int clockMinute = 02;
@@ -74,6 +81,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         tv_add_diary_select_date.setText(currentDate);
 
         editAddFoodItem = (EditText) findViewById(R.id.editAddFoodItem);
+        edit_add_diary_food_id = (EditText) findViewById(R.id.edit_add_diary_food_id);
 
         editTime = (EditText) findViewById(R.id.editTime);
         editTime.setOnClickListener(this);
@@ -82,6 +90,34 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
         Button buttonAddEntry = (Button) findViewById(R.id.buttonAddEntry);
         buttonAddEntry.setOnClickListener(this);
+
+        Button button_scan_item= (Button) findViewById(R.id.button_scan_item);
+        button_scan_item.setOnClickListener(this);
+
+        edit_add_diary_food_id.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    if (dbHelper.foodIdExsists(v.getText().toString())) {
+                        //TO-DO add a connection to the database
+                        Cursor result = dbHelper.getFoodItemDetails(v.getText().toString());
+                        FoodLibrary foodResult = new FoodLibrary();
+                        foodResult.setFoodId(result.getString(0));
+                        foodResult.setFoodName(result.getString(1));
+                        foodResult.setNote(result.getString(2));
+
+                        editAddFoodItem.setText(foodResult.getFoodName());
+                        editNote.setText(foodResult.getNote());
+                    } else {
+                        Toast.makeText(AddDiaryEntryActivity.this, "No food item found for ID: " + v.getText(),
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                    return true;
+                }
+                return false;
+            }
+        });
 
         Log.d("AddDiaryEntry Date:", String.valueOf(selectedDate.getTimeInMillis()));
 
@@ -97,6 +133,11 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
                 addTime();
                 break;
             }
+            case R.id.button_scan_item: {
+                IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+                scanIntegrator.initiateScan();
+                break;
+            }
         }
     }
 
@@ -109,6 +150,40 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_entry, menu);
         return true;
+    }
+
+    /**
+     * Handles all Scan requests and results.
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            if(scanningResult.getContents() == null) {
+                Toast.makeText(this, "Scan cancelled.", Toast.LENGTH_LONG);
+            } else {
+                String scanContent = scanningResult.getContents();
+                if (dbHelper.foodIdExsists(scanContent)) {
+                    //TO-DO get the stock information from the database
+                    Cursor result = dbHelper.getFoodItemDetails(scanContent);
+                    FoodLibrary foodResult = new FoodLibrary();
+                    foodResult.setFoodId(result.getString(0));
+                    foodResult.setFoodName(result.getString(1));
+                    foodResult.setNote(result.getString(2));
+
+                    editAddFoodItem.setText(foodResult.getFoodName());
+                    editNote.setText(foodResult.getNote());
+                } else {
+                    Toast.makeText(this, "No food item found for ID: " + scanContent,
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        } else {
+            Toast.makeText(this,"No scan data received!",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     /**

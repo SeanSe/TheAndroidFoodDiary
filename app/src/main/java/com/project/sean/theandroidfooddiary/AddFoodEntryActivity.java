@@ -105,6 +105,7 @@ public class AddFoodEntryActivity extends AppCompatActivity {
                     Toast.makeText(this, "Data inserted successfully!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(AddFoodEntryActivity.this, FoodLibraryActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(this, "Error, data not inserted.", Toast.LENGTH_LONG).show();
                 }
