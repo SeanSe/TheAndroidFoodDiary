@@ -57,6 +57,10 @@
         <activity android:name=".ViewReportActivity">
         </activity>
 
+        <activity android:name=".EmailReportActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
         <receiver android:name=".Notification.NotificationPublisher" />
     </application>
 </manifest>

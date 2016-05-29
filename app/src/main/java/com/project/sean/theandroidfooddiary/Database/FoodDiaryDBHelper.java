@@ -184,6 +184,33 @@ public class FoodDiaryDBHelper extends SQLiteOpenHelper {
         return diaryList;
     }
 
+    //SELECT * FROM DIARY_INFO WHERE DIARY_DATE BETWEEN 100000000 AND 100000002 ORDER BY DIARY_DATE ASC, DIARY_HOUR ASC, DIARY_MINUTE ASC
+
+    public ArrayList<FoodDiary> getFoodDiaryResults(long startDate, long endDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<FoodDiary> diaryList = new ArrayList<>();
+        //SELECT * QUERY
+        String SQL_GETRESULTS = "SELECT * FROM " + DiaryTable.TABLE_NAME +
+                " WHERE " + DiaryTable.COL_DATE + " BETWEEN " + startDate + " AND " +
+                endDate + " ORDER BY " + DiaryTable.COL_DATE + " ASC, " + DiaryTable.COL_HOUR + " ASC, " +
+                DiaryTable.COL_MINUTE + " ASC";
+        Cursor cursor = db.rawQuery(SQL_GETRESULTS, null);
+        if(cursor.moveToFirst()) {
+            do {
+                FoodDiary foodDiary = new FoodDiary();
+                foodDiary.setDiaryId(cursor.getInt(0));
+                foodDiary.setDate(cursor.getLong(1));
+                foodDiary.setHour(cursor.getInt(2));
+                foodDiary.setMinute(cursor.getInt(3));
+                foodDiary.setFoodItem(cursor.getString(4));
+                foodDiary.setFoodNote(cursor.getString(5));
+
+                diaryList.add(foodDiary);
+            } while (cursor.moveToNext());
+        }
+        return diaryList;
+    }
+
 
     /**
      * Update the selected food diary entry, changing the details stored in the DB
