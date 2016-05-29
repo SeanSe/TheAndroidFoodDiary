@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -82,6 +83,27 @@ public class FoodLibraryActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent food) {
+        //super.onActivityResult(requestCode, resultCode, date);
+        Log.d("onActivityResult", "is ok");
+        if(requestCode == 3) {
+            Log.d("RESULT CODE:", String.valueOf(resultCode));
+            if(resultCode == RESULT_OK) {
+                FoodLibrary newFoodItem = (FoodLibrary) food.getSerializableExtra("foodItem");
+                int foodIndex = 0;
+                for(FoodLibrary foodLibrary : foodLibList) {
+                    if(foodLibrary.getFoodId().equals(newFoodItem.getFoodId())) {
+                        foodIndex = foodLibList.indexOf(foodLibrary);
+                    }
+                }
+                foodLibList.set(foodIndex, newFoodItem);
+                foodLibAdapter.notifyData(foodLibList);
+                foodLibAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     /**
@@ -164,7 +186,7 @@ public class FoodLibraryActivity extends AppCompatActivity {
                 Toast.makeText(this, "Update pressed.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FoodLibraryActivity.this, EditFoodEntryActivity.class);
                 intent.putExtra("foodEntry", foodLibList.get(info.position));
-                startActivity(intent);
+                startActivityForResult(intent, 3);
                 break;
             }
             case "Delete": {
