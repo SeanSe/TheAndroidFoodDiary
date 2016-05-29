@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -20,18 +15,18 @@
             android:layout_height="wrap_content"
             android:text="Set Notifcation"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp" />
 
 
         <TextView
             android:id="@+id/tvAddTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="39dp"
             android:text="Time: "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_below="@+id/textView"
-            android:layout_alignParentStart="true" />
+            android:layout_alignStart="@+id/editTime" />
 
         <EditText
             android:id="@+id/editTime"
@@ -41,18 +36,47 @@
             android:focusable="false"
             android:inputType="time"
             android:singleLine="true"
-            android:layout_alignTop="@+id/tvAddTime"
-            android:layout_toEndOf="@+id/tvAddTime"
-            android:hint="Select time..." />
+            android:hint="Select time..."
+            android:layout_marginRight="5dp"
+            android:layout_below="@+id/tvAddTime"
+            android:layout_alignEnd="@+id/textView" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Set"
             android:id="@+id/buttonNoteSet"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/editTime" />
+            android:layout_alignTop="@+id/editTime"
+            android:layout_alignParentEnd="true" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTime"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Backup Database"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Export Database"
+                android:id="@+id/buttonExportSD" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Import Database"
+                android:id="@+id/buttonImportSD"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
     </RelativeLayout>
-
-
-</ScrollView>

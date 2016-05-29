@@ -1,11 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Report"
-        android:id="@+id/tvReport" />
-</LinearLayout>
+        android:text="Select the start and end date for the report."
+        android:id="@+id/tvReport"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/tvReport"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="49dp" />
+
+    <EditText
+        android:id="@+id/editStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="time"
+        android:singleLine="true"
+        android:layout_alignTop="@+id/tvStartDate"
+        android:layout_alignEnd="@+id/tvReport" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editEndDate"
+        android:focusable="false"
+        android:layout_below="@+id/editStartDate"
+        android:layout_alignStart="@+id/editStartDate"
+        android:layout_marginTop="47dp"
+        android:layout_alignEnd="@+id/editStartDate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="End Date:"
+        android:id="@+id/tvEndDate"
+        android:layout_alignTop="@+id/editEndDate"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Report"
+        android:id="@+id/buttonGenerateReport"
+        android:layout_below="@+id/editEndDate"
+        android:layout_alignStart="@+id/editEndDate"
+        android:layout_marginTop="57dp"
+        android:layout_alignEnd="@+id/editEndDate" />
+</RelativeLayout>

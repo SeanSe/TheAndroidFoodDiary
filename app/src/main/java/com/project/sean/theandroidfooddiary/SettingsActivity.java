@@ -1,37 +1,5 @@
 package com.project.sean.theandroidfooddiary;
 
-//import android.app.AlarmManager;
-//import android.app.Notification;
-//import android.app.PendingIntent;
-//import android.app.TimePickerDialog;
-//import android.content.Context;
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.os.SystemClock;
-//import android.support.v7.app.AppCompatActivity;
-//import android.util.Log;
-//import android.view.Menu;
-//import android.view.MenuItem;
-//import android.view.View;
-//import android.widget.EditText;
-//import android.widget.TimePicker;
-//
-//import java.text.SimpleDateFormat;
-//import java.util.Calendar;
-//import java.util.Locale;
-//
-///**
-// * Created by Sean on 15/05/2016.
-// */
-//public class SettingsActivity extends AppCompatActivity {
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_settings);
-//        setTitle("Settings");
-//    }
-//}
-
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -51,13 +19,14 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.project.sean.theandroidfooddiary.Database.BackupData;
 import com.project.sean.theandroidfooddiary.Notification.NotificationPublisher;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, BackupData.OnBackupListener {
 
     EditText editTime;
 
@@ -66,6 +35,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     long currentMilli = 0;
     long userSetTime = 0;
+
+    private Context context;
+
+    private BackupData backupData;
 
 
     @Override
@@ -77,6 +50,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         editTime = (EditText) findViewById(R.id.editTime);
         editTime.setOnClickListener(this);
 
+        context = this;
+
+        backupData = new BackupData(context);
+        backupData.setOnBackupListener(this);
+
         Button buttonNoteSet = (Button) findViewById(R.id.buttonNoteSet);
         buttonNoteSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +65,22 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     Toast.makeText(SettingsActivity.this, "Please enter a suitable time!", Toast.LENGTH_LONG).show();
                 }
+
+            }
+        });
+
+        Button buttonExportSD = (Button) findViewById(R.id.buttonExportSD);
+        buttonExportSD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backupData.exportToSD();
+            }
+        });
+
+        Button buttonImportSD = (Button) findViewById(R.id.buttonImportSD);
+        buttonImportSD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
@@ -161,5 +155,23 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         long difference = userSetTime - currentMilli;
         Log.d("Current Millis:", String.valueOf(difference));
         scheduleNotification(getNotification("Enter into your food diary!"), difference);
+    }
+
+    @Override
+    public void onFinishExport(String error) {
+        String notify = error;
+        if (error == null) {
+            notify = "Export success";
+        }
+        Toast.makeText(context, notify, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFinishImport(String error) {
+        String notify = error;
+        if (error == null) {
+            notify = "Import success";
+        }
+        Toast.makeText(context, notify, Toast.LENGTH_SHORT).show();
     }
 }
