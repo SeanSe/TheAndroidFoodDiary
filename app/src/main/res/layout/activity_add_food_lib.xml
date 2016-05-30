@@ -37,7 +37,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Scan"
+                    android:text="@string/button_scan_food_text"
                     android:id="@+id/button_scan_food" />
             </LinearLayout>
         </LinearLayout>
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="Food Name: "
+                android:text="@string/tvAddFoodName_food_lib_text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="Note:"
+                android:text="@string/tvAddNote_food_lib_text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_below="@+id/editAddFoodLib" />
 
@@ -95,7 +95,7 @@
                 android:layout_below="@+id/editFoodNote"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="65dp"
-                android:text="Add Entry" />
+                android:text="@string/buttonAddFoodLib_text" />
         </RelativeLayout>
 
 

@@ -13,7 +13,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Notifcation"
+            android:text="@string/textView_set_notif"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp" />
@@ -23,7 +23,7 @@
             android:id="@+id/tvAddTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time: "
+            android:text="@string/tvAddTime_settings_text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_below="@+id/textView"
             android:layout_alignStart="@+id/editTime" />
@@ -36,7 +36,7 @@
             android:focusable="false"
             android:inputType="time"
             android:singleLine="true"
-            android:hint="Select time..."
+            android:hint="@string/editTime_select_time"
             android:layout_marginRight="5dp"
             android:layout_below="@+id/tvAddTime"
             android:layout_alignEnd="@+id/textView" />
@@ -44,7 +44,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set"
+            android:text="@string/buttonNoteSet_text"
             android:id="@+id/buttonNoteSet"
             android:layout_alignTop="@+id/editTime"
             android:layout_alignParentEnd="true" />
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Backup Database"
+                android:text="@string/textView2_settings_text"
                 android:id="@+id/textView2"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="15dp" />
@@ -69,13 +69,13 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Export Database"
+                android:text="@string/buttonExportSD_text"
                 android:id="@+id/buttonExportSD" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Import Database"
+                android:text="@string/buttonImportSD_text"
                 android:id="@+id/buttonImportSD"
                 android:layout_marginTop="20dp" />
         </LinearLayout>

@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Food ID: "
+                    android:text="@string/textView_edit_food_lib_text"
                     android:id="@+id/textView"
                     android:layout_marginRight="35dp" />
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="Food Name: "
+                android:text="@string/tvAddFoodName_edit_food_lib_text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="Note:"
+                android:text="@string/tvAddNote_edit_food_lib_text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_below="@+id/editUpdateFoodLib" />
 
@@ -99,7 +99,7 @@
                 android:layout_below="@+id/editupdateFoodNote"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="65dp"
-                android:text="Update Entry" />
+                android:text="@string/buttonUpdateFoodLib_text" />
         </RelativeLayout>
 
 
