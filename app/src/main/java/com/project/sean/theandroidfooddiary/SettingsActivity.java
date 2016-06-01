@@ -1,14 +1,18 @@
 package com.project.sean.theandroidfooddiary;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.SystemClock;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -40,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private BackupData backupData;
 
+    boolean permResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +86,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         buttonImportSD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                backupData.importToSD();
             }
         });
+
+        permResult = isStoragePermissionGranted();
+        if(permResult) {
+            Toast.makeText(this, "External Storage access granted!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "External Storage access denied!", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void scheduleNotification(Notification notification, long delay) {
@@ -173,5 +185,33 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             notify = "Import success";
         }
         Toast.makeText(context, notify, Toast.LENGTH_SHORT).show();
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (this.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v("TAG", "Permission is granted");
+                return true;
+            } else {
+
+                Log.v("TAG","Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("TAG", "Permission is granted");
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            Log.v("TAG","Permission: "+permissions[0]+ "was "+grantResults[0]);
+            //resume tasks needing this permission
+        }
     }
 }

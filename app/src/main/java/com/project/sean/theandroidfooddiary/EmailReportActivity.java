@@ -49,13 +49,13 @@ public class EmailReportActivity extends AppCompatActivity {
     }
 
     public void sendMail() {
-        File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "food_diary.pdf");
+        File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/TheFoodDiary/food_diary.pdf");
         if(fileLocation != null) {
             Uri path = Uri.fromFile(fileLocation);
 
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setType("message/rfc822");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, editEmailAdd.getText().toString());
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {editEmailAdd.getText().toString()});
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, editSubject.getText().toString());
             emailIntent.putExtra(Intent.EXTRA_TEXT, editMessage.getText().toString());
             emailIntent.putExtra(Intent.EXTRA_STREAM, path);

@@ -16,7 +16,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.itextpdf.text.Paragraph;
 import com.project.sean.theandroidfooddiary.R;
 
 import java.io.File;
@@ -45,7 +47,7 @@ public class BackupData {
     private final String dataTemp = dataPath + dataTempName;
 
     // folder on sd to backup data
-    private final String folderSD = Environment.getExternalStorageDirectory() + "/TheAndroidFoodDiary";
+    private final String folderSD = Environment.getExternalStorageDirectory() + "/TheFoodDiary";
 
     private Context context;
 
@@ -80,8 +82,8 @@ public class BackupData {
 
             if (sd.canWrite()) {
 
-                SimpleDateFormat formatTime = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss");
-                String backupDBPath = dataName + "_" + formatTime.format(new Date());
+                //SimpleDateFormat formatTime = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss");
+                String backupDBPath = dataName;
 
                 File currentDB = new File(Environment.getDataDirectory(), data);
                 File backupDB = new File(sd, backupDBPath);
@@ -93,7 +95,8 @@ public class BackupData {
                     src.close();
                     dst.close();
                 } else {
-                    System.out.println("db not exist");
+                    Toast.makeText(context, "Database does not exist!", Toast.LENGTH_LONG).show();
+                    System.out.println("Database does not exist");
                 }
             }
         } catch (Exception e) {
@@ -101,6 +104,44 @@ public class BackupData {
             error = "Error backup";
         }
         onBackupListener.onFinishExport(error);
+    }
+
+    public void importToSD() {
+        String error = null;
+        try {
+            File sd = new File(folderSD);
+
+            if(sd.exists()) {
+                if(sd.canWrite()) {
+                    File backupDB = new File(sd, dataName);
+                    File currentDB = new File(Environment.getDataDirectory(), data);
+
+                    if(currentDB.exists()) {
+                        FileChannel src;
+                        try {
+                            src = new FileInputStream(backupDB).getChannel();
+                            FileChannel dst = new FileOutputStream(currentDB).getChannel();
+                            dst.transferFrom(src, 0, src.size());
+                            src.close();
+                            dst.close();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                            error = "Error loading file.";
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            error = "Error importing file.";
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(context, "No folder found.", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            error = "Error importing.";
+        }
+
+        onBackupListener.onFinishImport(error);
     }
 
 //    /**
@@ -151,6 +192,8 @@ public class BackupData {
 //
 //        onBackupListener.onFinishImport(error);
 //    }
+//
+
 
 //    /**
 //     * show dialog for select backup database before import database
