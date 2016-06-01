@@ -63,10 +63,18 @@ public class ReportActivity extends AppCompatActivity implements OnClickListener
             @Override
             public void onClick(View v) {
                 if(editStartDate != null && editEndDate != null) {
-                    Intent intent = new Intent(ReportActivity.this, ViewReportActivity.class);
-                    intent.putExtra("startDate", startDate);
-                    intent.putExtra("endDate", endDate);
-                    startActivity(intent);
+                    if(startDate.getTimeInMillis() > endDate.getTimeInMillis()) {
+                        Toast.makeText(ReportActivity.this, "Start date cannot be after the end date.",
+                                Toast.LENGTH_LONG).show();
+                    } else if (endDate.getTimeInMillis() < startDate.getTimeInMillis()){
+                        Toast.makeText(ReportActivity.this, "End date cannot be before the start date.",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(ReportActivity.this, ViewReportActivity.class);
+                        intent.putExtra("startDate", startDate);
+                        intent.putExtra("endDate", endDate);
+                        startActivity(intent);
+                    }
                 } else {
                     Toast.makeText(ReportActivity.this, "Start and end date required.", Toast.LENGTH_LONG).show();
                 }
